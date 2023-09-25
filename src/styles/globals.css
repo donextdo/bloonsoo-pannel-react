@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-gray-50;
+  scrollbar-width: thin;
+  scrollbar-color: transparent darkyellow;}
+
+  @layer components {
+    .control-btn {
+      @apply h-8 w-8 rounded-full border border-slate-700 text-lg font-bold hover:bg-gray-200;
+    }
+  
+    .gradient-btn {
+      @apply text-sm inline-block text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow;
+    }
+  
+    .gradient-outline-btn {
+      @apply rounded-full font-semibold border border-darkyellow text-sm hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black;
+    }
+  
+    .btn-accent {
+      @apply bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900;
+    }
+  
+    .booking-tab {
+      @apply w-full h-20 border-b-8 border-blue-700 flex items-center gap-3 text-blue-700;
+    }
+  
+    .span-point {
+      @apply w-6 h-6 rounded-full text-sm text-white bg-blue-700 font-bold flex items-center justify-center;
+    }
+  }
+
+  .bg-custom {
+    background-color: red;
+  }
+
+  /* Customize the width of the scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Adjust this value to your desired width */
+  height: 8px;
+
+}
+
+/* Customize the appearance of the scrollbar track */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Example background color */
+}
+
+/* Customize the appearance of the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Example thumb color */
+  border-radius: 4px;
+}
