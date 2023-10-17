@@ -66,12 +66,18 @@ const HotelPage = () => {
         },
         mobile: '',
     })
+    const [userRole, setUserRole] = useState ('')
 
     useEffect(() => {
         fetchUser();
-        fetchHotels();
-        getCommissionRate();
     }, []);
+
+    useEffect(() => {
+        if(userRole){
+        fetchHotels();
+        }
+        getCommissionRate();
+    }, [userRole]);
 
     let token: any 
       if (typeof localStorage !== 'undefined') {
@@ -87,6 +93,7 @@ const HotelPage = () => {
                 }
             })
             setUser(response.data)
+            setUserRole(response.data.role)
         } catch (error) {
             console.log(error)
         }
@@ -97,20 +104,37 @@ const HotelPage = () => {
     const fetchHotels = async () => {
         try {
             // setLoading(true);
+            console.log("uuu",user.role)
+            console.log("bbbb",userRole)
 
-            if (user.role === 'admin') {
-                setEndPoint('get/all')
-            } else {
-                setEndPoint('get/my')
-            }
-
-            const response = await axios.get(`${baseUrl}/hotel/${endPoint}`, {
-                headers: {
-                    'authorization': `Bearer ${token}`
-                }
-            });
-            console.log("hotels", response.data)
+            if (user.role === 'hotel-admin') {
+                
+                const response = await axios.get(`${baseUrl}/hotel/get/my`, {
+                    headers: {
+                        'authorization': `Bearer ${token}`
+                    }
+                });
             setHotels(response.data);
+
+            } else if(user.role === 'admin') {
+               
+                const response = await axios.get(`${baseUrl}/hotel/get/all`, {
+                    headers: {
+                        'authorization': `Bearer ${token}`
+                    }
+                });
+            setHotels(response.data);
+           
+                
+            }
+            // console.log("endPoint",endPoint)
+            // const response = await axios.get(`${baseUrl}/hotel/${endPoint}`, {
+            //     headers: {
+            //         'authorization': `Bearer ${token}`
+            //     }
+            // });
+            // console.log("hotels", response.data)
+            // setHotels(response.data);
             // setLoading(false);
         } catch (error) {
             console.log(error);

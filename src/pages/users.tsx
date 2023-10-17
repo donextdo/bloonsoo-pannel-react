@@ -229,7 +229,7 @@ const User = () => {
                 <AssignHotel setShowAssignHotel={setShowAssignHotel} userId={userId} />
             )}
             {showAddUser && (
-                <AddUser setShowAddUser={setShowAddUser} />
+                <AddUser setShowAddUser={setShowAddUser} fetchUser={fetchUser}/>
             )}
 
             {showRoleUser && (
