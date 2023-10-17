@@ -226,7 +226,7 @@ const Dashboard = () => {
                     <DashboardCard icon={faBellConcierge} color="bg-gradient-to-r from-orange-400 to-orange-200"  title="Reject Bookings" value={rejectBookings} />
                     <DashboardCard icon={faBellConcierge} color="bg-gradient-to-r from-orange-400 to-orange-200"  title="Pending Bookings" value={pendingBookings} />
                     {user.role === 'admin' && (
-                        <DashboardCard icon={faDollarSign} color="bg-gradient-to-r from-amber-400 to-amber-200"  title="Total Income" value={totalCommission} />
+                        <DashboardCard icon={faDollarSign} color="bg-gradient-to-r from-amber-400 to-amber-200"  title="Total Income" value={(totalCommission.toFixed(2))} />
                     )}
                     <DashboardCard icon={faUser} color="bg-gradient-to-r from-emerald-500 to-emerald-200" title="Active Users" value={activeUsers} />
                 </div>

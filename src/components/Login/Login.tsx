@@ -6,6 +6,8 @@ import baseUrl from "../../../Utils/baseUrl";
 import ada from '../../../assets/hero.png'
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import Logo from '../../../assets/New folder/logo.png'
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -70,6 +72,14 @@ const Login = () => {
     
     return ( 
         <section className=" relative h-full w-full">
+
+            <div className='bg-darkblue py-8 z-50 absolute w-full '>
+                <div className='container mx-auto'>
+                    {/* <Link href='/'> */}
+                        <Image src={Logo} width='255' height='255' alt='logo' />
+                    {/* </Link> */}
+                </div>
+            </div>
             
             <div className="w-full h-screen">
                 <Image
