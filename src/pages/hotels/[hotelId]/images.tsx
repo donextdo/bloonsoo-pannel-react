@@ -19,6 +19,8 @@ const ImagesPage = () => {
     const [preview, setPreview] = useState('');
     const [images, setImages] = useState(false);
     const [previews, setPreviews] = useState<any[]>([]);
+    const [galleryImages, setGalleryImages] = useState([]);
+
 
     let token: any;
     if (typeof localStorage !== "undefined") {
@@ -30,13 +32,15 @@ const ImagesPage = () => {
     useEffect(() => {
         console.log(hotelId)
         getCurrentHotel()
-    }, [hotelId])
+    }, [hotelId,previews])
 
     const getCurrentHotel = async () => {
         try {
             const response = await axios.get(`${baseUrl}/hotel/${hotelId}`)
             console.log(response.data)
             const data = response.data
+            const galleryImage = response.data.gallery_images
+            setGalleryImages(galleryImage)
             setPreview(data.cover_image)
             if (data.cover_image) {
                 setImage(true)
@@ -129,8 +133,17 @@ const ImagesPage = () => {
     };
 
 
-    const clearGallery = (imglink: any) => {
+    const clearGallery = async (imglink: any) => {
         setPreviews((prevPreviews) => prevPreviews.filter((path) => path !== imglink));
+        try {
+            const response = await axios.delete(`${baseUrl}/rooms/gallery/delete/${hotelId}`, {
+                data: { imgPath: imglink },
+            });
+
+        } catch (error) {
+            // Handle any errors that occurred during the request
+            console.error(error);
+        }
     };
 
     const handleSave = () => {
@@ -142,6 +155,21 @@ const ImagesPage = () => {
     }
 
     console.log(preview)
+    const deletephoto = async (imglink: any) => {
+        console.log(imglink)
+        setGalleryImages((prevGalleryImages) => prevGalleryImages.filter((path) => path !== imglink));
+        setPreviews((prevPreviews) => prevPreviews.filter((path) => path !== imglink));
+
+        try {
+            const response = await axios.delete(`${baseUrl}/rooms/gallery/delete/${hotelId}`, {
+                data: { imgPath: imglink },
+            });
+
+        } catch (error) {
+            // Handle any errors that occurred during the request
+            console.error(error);
+        }
+    };
     return (
         <Content>
             <RouteNavigationBar previous={"Facilities and Amenities"} current={"Images"} next={"Policies"} handleEditToggle={handleEditToggle} editMode={editMode} handleNext={handleNext} handlePrevious={handlePrevious} handleSave={handleSave}/>
@@ -300,7 +328,7 @@ const ImagesPage = () => {
                                                 htmlFor="gallery-img"
                                                 className="py-3 px-4 text-blue-500 text-sm font-semibold rounded-lg border border-blue-500 cursor-pointer"
                                             >
-                                                <FontAwesomeIcon icon={faCamera} className="text-blue-500 text-base" />
+                                                <FontAwesomeIcon icon={faCamera} className="text-blue-500 text-base mr-2" />
                                                 Add more
                                             </label>
 
@@ -321,6 +349,35 @@ const ImagesPage = () => {
                     </div>
 
                 </FormCard>
+
+                <FormCard label="All the Photos of a Hotel">
+                <div className="px-4 flex flex-col gap-6">
+                    {/* <h4 className="text-sm font-semibold text-gray-600">
+                        Add at least 3 photos now. You can always add more later.
+                    </h4> */}
+
+                    <div className="w-full grid grid-cols-6 bg-slate-300">
+                        {galleryImages.map((preview: any, index: number) => (
+                            <div key={index} className="w-full aspect-square relative border">
+                                <Image
+                                    src={preview}
+                                    alt="item1"
+                                    className="w-full h-full object-contain bg-white"
+                                    width={450}
+                                    height={400}
+                                />
+                                <button
+                                    onClick={() => deletephoto(preview)}
+                                    className="w-8 h-8 rounded-full bg-red-500 absolute top-2 right-2"
+                                >
+                                    <FontAwesomeIcon icon={faTrash} className="text-white text-sm" />
+                                </button>
+                            </div>
+                        ))}
+
+                    </div>
+                </div>
+            </FormCard>
 
                 {editMode && (
                         <button onClick={handleSave} className="w-full py-4 btn-accent">  Next

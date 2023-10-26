@@ -148,7 +148,7 @@ const PaymentPage = () => {
 
             // setLoading(false);
 
-            router.push('/');
+            setEditMode(!editMode)
         } catch (error) {
             console.log(error);
             // setLoading(false);

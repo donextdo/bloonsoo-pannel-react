@@ -5,6 +5,9 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ['localhost'],
+    domains: ['localhost',
+    'api.bloonsoo.com',
+    'bloonsoo-images-upload.s3.ap-southeast-1.amazonaws.com'
+  ],
   },
 };

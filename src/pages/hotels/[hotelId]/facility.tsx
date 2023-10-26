@@ -179,16 +179,8 @@ const FacilityPage = () => {
             });
 
             // setLoading(false);
+            setEditMode(!editMode)
 
-
-            const hotelData = { hotelId: hotelId };
-            console.log(hotelData)
-            router.push({
-                pathname: '/listing/hotel/image',
-                query: hotelData,
-            });
-            //   const hotel = response.data;
-            console.log(response.data);
         } catch (error) {
             console.error(error);
         }

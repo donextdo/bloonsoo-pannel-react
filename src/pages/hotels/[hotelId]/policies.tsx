@@ -111,13 +111,8 @@ const PoliciesPage = () => {
 
             // setLoading(false);
 
-
-            const hotelData = { hotelId: hotelId };
-            console.log(hotelData)
-            router.push({
-                pathname: '/listing/hotel/payment',
-                query: hotelData,
-            });
+            setEditMode(!editMode)
+           
         } catch (error) {
             console.error(error);
             // setLoading(false);
