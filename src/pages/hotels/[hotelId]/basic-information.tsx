@@ -137,25 +137,20 @@ const BasicInformation = () => {
 
             console.log(hotelDto);
 
-            const response = await axios.post(`${baseUrl}/hotel/create`, hotelDto, {
+            const response = await axios.patch(`${baseUrl}/hotel/facilities/${hotelId}`, hotelDto, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
 
-            // setHotelId(response.data._id);
+         
 
             console.log(response.data);
 
             setLoading(false);
+         setEditMode(!editMode)
 
-            // router.push("/listing/hotel/pricing");
-            const hotelData = { hotelIid: response.data._id };
-            console.log(hotelData);
-            router.push({
-                pathname: "/listing/hotel/pricing",
-                query: hotelData,
-            });
+           
         } catch (error) {
             console.error(error);
             setLoading(false);

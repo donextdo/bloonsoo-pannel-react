@@ -20,7 +20,7 @@ const RouteNavigationBar = ({handleSave, handleEditToggle, editMode, previous, c
               <span>{current}</span>
               {!editMode ? (
                 <button onClick={handleEditToggle}>
-                  <FontAwesomeIcon icon={faPenToSquare} className="text-blue-600" />
+                  <FontAwesomeIcon icon={faPenToSquare} className="text-blue-600" /> Edit
                 </button>
               ) : (
                 <>
